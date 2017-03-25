@@ -79,6 +79,10 @@ class MLP:
               testset_X=None,
               testset_y=None,
               checkpoint=False):
+        print_accuracy = testset_X is not None and testset_y is not None
+        accuracy_log = []
+        dataloss_log = []
+
         for i in range(epoch):
 
             ff = self.feed_forward(self.X)
@@ -86,10 +90,11 @@ class MLP:
             self.back_propagate(ff, self.X, self.y)
 
             if print_loss and i % 2000 == 0:
+                dataloss = self.data_loss()
+                dataloss_log.append((i, dataloss))
                 print("Data loss (cross entropy) after epoch {0}: {1}".format(
-                    i, self.data_loss()))
+                    i, dataloss))
 
-            print_accuracy = testset_X is not None and testset_y is not None
             if print_accuracy and i % 2000 == 0:
                 x_len = testset_X.shape[0]
                 predict_idx = self.predict(testset_X)
@@ -97,11 +102,13 @@ class MLP:
                     target[predict_idx[row_id]]
                     for row_id, target in enumerate(testset_y)
                 ]
-                print("Accuracy after epoch {0}: {1}%".format(
-                    i, sum(correct_prediction) / x_len))
+                acc = sum(correct_prediction) / x_len
+                accuracy_log.append((i, acc))
+                print("Accuracy after epoch {0}: {1}".format(i, acc))
 
             if checkpoint and i % 2000 == 0:
                 pass  # TODO implement dump parameter using np.savez with shape
+        return accuracy_log, dataloss_log
 
     def minibatch_train(self,
                         batch_size,
@@ -110,6 +117,10 @@ class MLP:
                         testset_X=None,
                         testset_y=None,
                         checkpoint=False):
+        print_accuracy = testset_X is not None and testset_y is not None
+        accuracy_log = []
+        dataloss_log = []
+
         for i in range(epoch):
             subset_idx = np.random.choice(
                 self.num_examples, size=batch_size, replace=False)
@@ -121,10 +132,11 @@ class MLP:
             self.back_propagate(ff, sample_X, sample_y)
 
             if print_loss and i % 2000 == 0:
+                dataloss = self.data_loss()
+                dataloss_log.append((i, dataloss))
                 print("Data loss (cross entropy) after epoch {0}: {1}".format(
-                    i, self.data_loss()))
+                    i, dataloss))
 
-            print_accuracy = testset_X is not None and testset_y is not None
             if print_accuracy and i % 2000 == 0:
                 x_len = testset_X.shape[0]
                 predict_idx = self.predict(testset_X)
@@ -132,11 +144,13 @@ class MLP:
                     target[predict_idx[row_id]]
                     for row_id, target in enumerate(testset_y)
                 ]
-                print("Accuracy after epoch {0}: {1}%".format(
-                    i, sum(correct_prediction) / x_len))
+                acc = sum(correct_prediction) / x_len
+                accuracy_log.append((i, acc))
+                print("Accuracy after epoch {0}: {1}".format(i, acc))
 
             if checkpoint and i % 2000 == 0:
                 pass  # TODO implement dump parameter using np.savez with shape
+        return accuracy_log, dataloss_log
 
 
 def get_Xor_data():

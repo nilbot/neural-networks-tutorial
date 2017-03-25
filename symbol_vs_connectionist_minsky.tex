@@ -1,0 +1,55 @@
+\documentclass{scrartcl}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{paralist}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\usepackage{amsthm}
+\usepackage{titlesec}
+\usepackage{listings}
+
+%% Golang definition for listings
+%% http://github.io/julienc91/lstlistings-golang
+%%
+\RequirePackage{listings}
+
+\lstdefinelanguage{Golang}%
+  {morekeywords=[1]{package,import,func,type,struct,return,defer,panic,%
+     recover,select,var,const,iota,},%
+   morekeywords=[2]{string,uint,uint8,uint16,uint32,uint64,int,int8,int16,%
+     int32,int64,bool,float32,float64,complex64,complex128,byte,rune,uintptr,%
+     error,interface},%
+   morekeywords=[3]{map,slice,make,new,nil,len,cap,copy,close,true,false,%
+     delete,append,real,imag,complex,chan,},%
+   morekeywords=[4]{for,break,continue,range,goto,switch,case,fallthrough,if,%
+     else,default,},%
+   morekeywords=[5]{Println,Printf,Error,},%
+   sensitive=true,%
+   morecomment=[l]{//},%
+   morecomment=[s]{/*}{*/},%
+   morestring=[b]',%
+   morestring=[b]",%
+   morestring=[s]{`}{`},%
+   }
+
+\usepackage{wrapfig}
+\usetikzlibrary{automata,arrows,positioning}
+\usepackage[toc,page]{appendix}
+\title{Summary: Symbolic vs Connectionist \\
+ \large Assignment 1 COMP30230}
+\author{Ersi Ni\\
+\large 15204230}
+\usepackage[parfill]{parskip}
+
+\begin{document}
+\maketitle
+
+
+The renowned scientist Marvin Minsky expressed his take on the "conflicts" between symbolic and connectionist ideologies in the Artificial Intelligence research scene.
+In this paper, he took no side in this conflict. He began with outlining the rift between symbol-oriented research community and connectionist, pointing out that the deficiency of pure symbolic AI in solving tasks that are not (or have difficulties to be) constrained by rules. While the connectionist systems have a poor ability to reason with solutions. He suggested that AI research should embrace the movement that combine the strength of both worlds, for there is no one best way to solve problems from either traditional ideologies. He explains his position in richer context, when he provided the comparison between top-down and bottom-up strategies in solving problem. In closing remarks of the first section, he urged that our current understandings are not enough and we need to make efforts in researching how to combine the both worlds.
+
+
+
+\end{document}

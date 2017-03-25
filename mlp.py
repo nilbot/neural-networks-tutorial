@@ -11,13 +11,20 @@ class MLP:
     (1 hidden layer) 3 layer perceptron
     """
 
-    def __init__(self, X, y, hu_size, rand_seed=0):
+    def __init__(self, X, y, hu_size, rand_seed=0, epsilon=0.01):
+        """
+        X = training set sample
+        y = training set target
+        hu_size = hidden units size
+        rand_seed = random seed
+        epsilon = learning rate
+        """
         self.X, self.y = X, y
         self.num_examples = X.shape[0]
         self.input_dimension = X.shape[1]
         self.output_dimension = y.shape[1]
         self.hiddenunit_size = hu_size
-        self.epsilon = 0.01
+        self.epsilon = epsilon
         np.random.seed(rand_seed)
         self.W1 = np.random.randn(
             self.input_dimension,
@@ -57,6 +64,9 @@ class MLP:
         return np.argmax(ff['z2'], axis=1)
 
     def data_loss(self):
+        """
+        data loss of the training set, not the testing set
+        """
         ff = self.feed_forward(self.X)
         y_hat = ff['z2']
         products = np.multiply(self.y, np.log(y_hat))

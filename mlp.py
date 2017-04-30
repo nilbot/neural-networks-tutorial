@@ -65,10 +65,25 @@ class MLP:
     def get_model(self):
         return {'W1': self.W1, 'b1': self.b1, 'W2': self.W2, 'b2': self.b2}
 
-    def predict(self, x, classificaton=True):
+    def save_model(self, model_name):
+        np.savez(
+            "{0}".format(model_name),
+            W1=self.W1,
+            b1=self.b1,
+            W2=self.W2,
+            b2=self.b2)
+
+    def load_model(self, model_name):
+        weights = np.load(model_name + ".npz")
+        self.W1, self.b1, self.W2, self.b2 = weights['W1'], weights[
+            'b1'], weights['W2'], weights['b2']
+
+    def predict(self, x, classificaton=True, naiive_ensemble=False):
         if not classificaton:
             return self.feed_forward(x, classificaton)
         ff = self.feed_forward(x, classificaton)
+        if naiive_ensemble:
+            return ff['z2']
         return np.argmax(ff['z2'], axis=1)
 
     def data_loss(self, classification=True):
@@ -131,7 +146,7 @@ class MLP:
                 print("Accuracy after epoch {0}: {1}".format(i, acc))
 
             if checkpoint and i % 2000 == 0:
-                pass  # TODO implement dump parameter using np.savez with shape
+                self.save_model("checkpoint-{0}".format(i))
         return accuracy_log, dataloss_log
 
 

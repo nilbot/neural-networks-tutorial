@@ -1,0 +1,62 @@
+\documentclass{scrartcl}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{paralist}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\usepackage{amsthm}
+\usepackage{titlesec}
+\usepackage{listings}
+
+%% Golang definition for listings
+%% http://github.io/julienc91/lstlistings-golang
+%%
+\RequirePackage{listings}
+
+\lstdefinelanguage{Golang}%
+  {morekeywords=[1]{package,import,func,type,struct,return,defer,panic,%
+     recover,select,var,const,iota,},%
+   morekeywords=[2]{string,uint,uint8,uint16,uint32,uint64,int,int8,int16,%
+     int32,int64,bool,float32,float64,complex64,complex128,byte,rune,uintptr,%
+     error,interface},%
+   morekeywords=[3]{map,slice,make,new,nil,len,cap,copy,close,true,false,%
+     delete,append,real,imag,complex,chan,},%
+   morekeywords=[4]{for,break,continue,range,goto,switch,case,fallthrough,if,%
+     else,default,},%
+   morekeywords=[5]{Println,Printf,Error,},%
+   sensitive=true,%
+   morecomment=[l]{//},%
+   morecomment=[s]{/*}{*/},%
+   morestring=[b]',%
+   morestring=[b]",%
+   morestring=[s]{`}{`},%
+   }
+
+\usepackage{wrapfig}
+\usetikzlibrary{automata,arrows,positioning}
+\usepackage[toc,page]{appendix}
+\title{Summary: Programming backgammon \\
+ \large Assignment 3 COMP30230}
+\author{Ersi Ni\\
+\large 15204230}
+\usepackage[parfill]{parskip}
+
+\begin{document}
+\maketitle
+
+
+Backgammon is a game that involves luck and strategy with a complexity that is considered a good test for machine intelligence. In the paper "Programming backgammon using self-teaching neural nets", Gerald Tesauro, the author, focused on viewing the machine learning procedure \textbf{Reinforcement Learning} as a mean to achieve success with n-ply search for games. 
+
+TD-gammon is the name of the learning system that this paper focused on. It is a multi-layer perceptron neural network that learns the weight by self playing. The neural network was trained from initial board position to end position in sequences, noted by temporal subscript $t$. Learnings are back-propagated from rewards called $z$ which is the outcome of the game. 
+
+In general, the paper claimed that TD-Gammon represents a radically different approach toward developing a program capable of sophisticated positional judgement. Rather than trying to imitate humans, TD-Gammon develops its own sense of positional judgement by learning from experience in playing against itself.
+
+
+
+
+
+
+
+\end{document}

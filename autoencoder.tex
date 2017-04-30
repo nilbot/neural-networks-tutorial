@@ -1,0 +1,62 @@
+\documentclass{scrartcl}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{paralist}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\usepackage{amsthm}
+\usepackage{titlesec}
+\usepackage{listings}
+
+%% Golang definition for listings
+%% http://github.io/julienc91/lstlistings-golang
+%%
+\RequirePackage{listings}
+
+\lstdefinelanguage{Golang}%
+  {morekeywords=[1]{package,import,func,type,struct,return,defer,panic,%
+     recover,select,var,const,iota,},%
+   morekeywords=[2]{string,uint,uint8,uint16,uint32,uint64,int,int8,int16,%
+     int32,int64,bool,float32,float64,complex64,complex128,byte,rune,uintptr,%
+     error,interface},%
+   morekeywords=[3]{map,slice,make,new,nil,len,cap,copy,close,true,false,%
+     delete,append,real,imag,complex,chan,},%
+   morekeywords=[4]{for,break,continue,range,goto,switch,case,fallthrough,if,%
+     else,default,},%
+   morekeywords=[5]{Println,Printf,Error,},%
+   sensitive=true,%
+   morecomment=[l]{//},%
+   morecomment=[s]{/*}{*/},%
+   morestring=[b]',%
+   morestring=[b]",%
+   morestring=[s]{`}{`},%
+   }
+
+\usepackage{wrapfig}
+\usetikzlibrary{automata,arrows,positioning}
+\usepackage[toc,page]{appendix}
+\title{Reducing the Dimensionality of Data with Neural Networks \\
+ \large Assignment 4 COMP30230}
+\author{Ersi Ni\\
+\large 15204230}
+\usepackage[parfill]{parskip}
+
+\begin{document}
+\maketitle
+
+Geoffrey Hinton et al. published a landmark paper in the science magazine in 2006, describing a neural network based data compression and reconstruction scheme called "autoencoder". Furthermore in this paper, the authors have provided a break-through solution to tackle the problem when training neural networks with many hidden layers. 
+
+Training many hidden layer neural network using gradient descent has many challenges. Due to gradients descent being a greedy solution, training with large weights will often have gradients trapped in local minima; while training with small weights will take exorbitant amount of effort because gradient vanishing in early stage. In the paper Hinton et al. proposed a pretraining scheme that solves this problem. 
+
+The data compression, or dimensionality reduction scheme is powered by stacking binary features trained with restricted boltzmann machine on top of each other. Each layer is a stochastic feature compression of the layer below it. These feature layers are built layer by layer, from bottom to top. The result from this building process retains a set of weights of the entire network structure that is friendly to gradient descent. Hence the term "pretraining". 
+
+Hinton et al. demonstrated this method's result using a synthetic data set of 2D image with a known intrinsic dimensionality and highly non-linear pixel intensity. "autoencoder" is put up to a comparison with PCA and showed superiority. Further the authors demonstrated the model's reconstruction's performance on MNIST character image dataset and on face image data set. For all these, "autoencoder" clearly out-performed PCA.
+
+To demonstrate the flexibility of the model, the authors performed evaluation on text data, as well as the usage of pretraining scheme in classification and regression problem. They showed that in MNIST classification task, a pretrained deep network broke the previous record in lowest error rate. 
+
+
+
+
+\end{document}

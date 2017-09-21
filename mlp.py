@@ -26,13 +26,11 @@ class MLP:
         self.hiddenunit_size = hu_size
         self.epsilon = epsilon
         np.random.seed(rand_seed)
-        self.W1 = np.random.randn(
-            self.input_dimension,
-            self.hiddenunit_size) / np.sqrt(self.input_dimension)
+        self.W1 = np.random.randn(self.input_dimension, self.hiddenunit_size
+                                 ) / np.sqrt(self.input_dimension)
         self.b1 = np.zeros((1, self.hiddenunit_size))
-        self.W2 = np.random.rand(
-            self.hiddenunit_size,
-            self.output_dimension) / np.sqrt(self.hiddenunit_size)
+        self.W2 = np.random.rand(self.hiddenunit_size, self.output_dimension
+                                ) / np.sqrt(self.hiddenunit_size)
         self.b2 = np.zeros((1, self.output_dimension))
 
     def feed_forward(self, x, classification=True):
@@ -131,8 +129,8 @@ class MLP:
                     print("Data loss (cross entropy) after epoch {0}: {1}".
                           format(i, dataloss))
                 else:
-                    print("Error (SSE) after epoch {0}: {1}".format(i,
-                                                                    dataloss))
+                    print(
+                        "Error (SSE) after epoch {0}: {1}".format(i, dataloss))
 
             if print_accuracy and i % 2000 == 0 and classification:
                 x_len = testset_X.shape[0]
@@ -151,8 +149,8 @@ class MLP:
 
 
 def get_Xor_data():
-    return np.array([[0, 0], [0, 1], [1, 0], [1, 1]]), np.array(
-        [[1, 0], [0, 1], [0, 1], [1, 0]])
+    return np.array([[0, 0], [0, 1], [1, 0],
+                     [1, 1]]), np.array([[1, 0], [0, 1], [0, 1], [1, 0]])
 
 
 def get_Sine_data(randseed=0):
@@ -162,11 +160,11 @@ def get_Sine_data(randseed=0):
     return x, np.reshape(y, (50, 1))
 
 
-def to_indexmatrix(vector):
+def to_indexmatrix(nvocab, vector):
     res = []
     for v in vector:
-        row = np.zeros(26, dtype=np.int)
-        row[v] = 1
+        row = np.zeros(nvocab, dtype=np.int)
+        row[int(v)] = 1
         res.append(row)
     return np.array(res)
 
@@ -176,7 +174,7 @@ def get_Hwl_data():
     dataset = pd.read_csv('letter-recognition.data', header=None)
     examples_dataframe = dataset.ix[:, 1:16]
     target_letter = [ord(item) - ord('A') for item in dataset.ix[:, 0]]
-    target = to_indexmatrix(target_letter)
+    target = to_indexmatrix(26, target_letter)
     return examples_dataframe.as_matrix(), target
 
 
@@ -196,3 +194,12 @@ def get_data_split(X, y, percentage):
     training_idx = get_training_idx(data_size, percentage)
     testing_idx = get_testing_idx(data_size, training_idx)
     return X[training_idx], y[training_idx], X[testing_idx], y[testing_idx]
+
+
+def get_MNIST():
+    custom_data_home = "data/"
+    from sklearn.datasets import fetch_mldata
+    mnist = fetch_mldata('MNIST original', data_home=custom_data_home)
+    target = to_indexmatrix(10, mnist.target)
+    mnist.target = target
+    return mnist
